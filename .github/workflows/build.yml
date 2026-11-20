@@ -12,6 +12,17 @@ on:
         required: false
         default: ''
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag de uma release existente para anexar os arquivos (ex.: v1.0.0). Vazio = só artefatos.'
+        type: string
+        required: false
+        default: ''
+      only:
+        description: 'Quais builds rodar'
+        type: choice
+        options: [todos, desktop, android, web]
+        default: todos
 
 permissions:
   contents: write
@@ -24,6 +35,7 @@ env:
 jobs:
   desktop:
     name: Desktop (${{ matrix.name }})
+    if: contains(fromJSON('["", "todos", "desktop"]'), inputs.only || '')
     strategy:
       fail-fast: false
       matrix:
@@ -81,6 +93,7 @@ jobs:
 
   android:
     name: Android (APK)
+    if: contains(fromJSON('["", "todos", "android"]'), inputs.only || '')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -93,11 +106,13 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: android-actions/setup-android@v3
-      - name: NDK
+      - name: Android SDK e NDK (já instalados no runner)
         run: |
-          sdkmanager --install "ndk;27.2.12479018" "build-tools;35.0.0" "platforms;android-35"
-          echo "NDK_HOME=$ANDROID_SDK_ROOT/ndk/27.2.12479018" >> "$GITHUB_ENV"
+          SDKM=$(ls -d "$ANDROID_HOME"/cmdline-tools/*/bin/sdkmanager | sort -V | tail -1)
+          yes | "$SDKM" --licenses > /dev/null || true
+          "$SDKM" --install "ndk;27.2.12479018" "build-tools;35.0.0" "platforms;android-35" > /dev/null
+          echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> "$GITHUB_ENV"
+          echo "NDK_HOME=$ANDROID_HOME/ndk/27.2.12479018" >> "$GITHUB_ENV"
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: aarch64-linux-android,armv7-linux-androideabi
@@ -150,6 +165,7 @@ jobs:
 
   web:
     name: Web (GitHub Pages)
+    if: contains(fromJSON('["", "todos", "web"]'), inputs.only || '')
     runs-on: ubuntu-latest
     environment:
       name: github-pages
