@@ -1,7 +1,7 @@
 {
   "name": "ferramentas-live",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Kit de ferramentas para transmissões ao vivo: cartões de comentário, tarjas, versículos, cronômetro, teleprompter, roteiro e mais.",
   "type": "module",
   "license": "MIT",
