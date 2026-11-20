@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Ferramentas Live",
+  "version": "../package.json",
+  "identifier": "io.github.oadrianrabelo.ferramentaslive",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": false,
+    "windows": [
+      {
+        "title": "Ferramentas Live",
+        "width": 1360,
+        "height": 860,
+        "minWidth": 380,
+        "minHeight": 560,
+        "resizable": true,
+        "dragDropEnabled": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self' ipc: http://ipc.localhost; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' ipc: http://ipc.localhost https://api.github.com"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Video",
+    "shortDescription": "Ferramentas para transmissões ao vivo",
+    "longDescription": "Cartões de comentário, tarjas, versículos, miniaturas, cronômetro, teleprompter, roteiro, sorteio, PIX e mais — tudo offline.",
+    "copyright": "© Adrian Rabelo",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "android": { "minSdkVersion": 24 },
+    "macOS": { "minimumSystemVersion": "10.15" }
+  }
+}

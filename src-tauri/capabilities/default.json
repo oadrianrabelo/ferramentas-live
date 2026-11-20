@@ -1,0 +1,14 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Permissões da janela principal e das janelas de exibição",
+  "windows": ["main", "tela-*"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-set-fullscreen",
+    "core:window:allow-is-fullscreen",
+    "core:webview:allow-create-webview-window",
+    "dialog:allow-save",
+    "fs:allow-write-file"
+  ]
+}

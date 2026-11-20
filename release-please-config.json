@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "include-component-in-tag": false,
+  "include-v-in-tag": true,
+  "bump-minor-pre-major": true,
+  "packages": {
+    ".": {
+      "release-type": "node",
+      "package-name": "ferramentas-live",
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [{ "type": "toml", "path": "src-tauri/Cargo.toml", "jsonpath": "$.package.version" }],
+      "changelog-sections": [
+        { "type": "feat", "section": "✨ Novidades" },
+        { "type": "fix", "section": "🐛 Correções" },
+        { "type": "perf", "section": "⚡ Desempenho" },
+        { "type": "refactor", "section": "♻️ Melhorias internas" },
+        { "type": "docs", "section": "📝 Documentação" },
+        { "type": "build", "section": "📦 Build", "hidden": true },
+        { "type": "ci", "section": "🤖 CI", "hidden": true },
+        { "type": "chore", "section": "🧹 Manutenção", "hidden": true },
+        { "type": "test", "section": "✅ Testes", "hidden": true },
+        { "type": "style", "section": "🎨 Estilo", "hidden": true }
+      ]
+    }
+  }
+}
